@@ -1,5 +1,9 @@
 <?php
-require 'database_connection.php'; // Include DB connection
+$host = 'localhost';
+$username = 'project_user';
+$password = 'password123';
+$dbname = 'dolphin_crm';
+
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -11,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $company = htmlspecialchars($_POST['company']);
     $type = htmlspecialchars($_POST['type']);
     $assigned_to = intval($_POST['assigned_to']);
-    $created_by = $_SESSION['user_id']; // Assuming user is logged in and user_id is stored in session
+    $created_by = $_SESSION['user_id']; 
 
-    if ($email && $firstname && $lastname) {  // Basic validation
+    if ($email && $firstname && $lastname) { 
         $stmt = $pdo->prepare("INSERT INTO contacts (title, firstname, lastname, email, telephone, company, type, assigned_to, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
         if ($stmt->execute([$title, $firstname, $lastname, $email, $telephone, $company, $type, $assigned_to, $created_by])) {
             echo json_encode(['success' => true, 'message' => 'Contact created successfully.']);
