@@ -22,7 +22,6 @@ function loadContactDetails(contactId) {
         });
 }
 
-// Example to assign contact to the logged-in user
 function assignToMe(contactId) {
     fetch('assign_contact.php', {
         method: 'POST',
