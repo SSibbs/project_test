@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #2c3e50;
+    color: white;
+    height: 100vh;
+    padding-top: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.sidebar ul li {
+    padding: 10px 0;
+    text-align: center;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background-color: #34495e;
+}
+
+/* Main content */
+.main-content {
+    flex-grow: 1;
+    background-color: white;
+    padding: 20px;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #34495e;
+    padding: 10px 0;
+    text-align: left;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.navbar h1 {
+    margin-left: 20px;
+}
+
+/* Contact Info */
+.contact-info h2 {
+    color: #2c3e50;
+}
+
+.contact-box {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+}
+
+.contact-box p {
+    margin: 10px 0;
+}
+
+/* Notes Section */
+.notes-section h2 {
+    color: #2c3e50;
+}
+
+.note-box {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+.note-box p {
+    margin: 5px 0;
+}

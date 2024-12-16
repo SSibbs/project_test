@@ -1,45 +1,43 @@
-// Fetch contact details and display them
 function loadContactDetails(contactId) {
     fetch(`view_contact.php?contact_id=${contactId}`)
         .then(response => response.json())
         .then(data => {
-            const contact = data.contact;
-            const notes = data.notes;
-            const details = `
-                <p><strong>Full Name:</strong> ${contact.title} ${contact.firstname} ${contact.lastname}</p>
-                <p><strong>Email:</strong> ${contact.email}</p>
-                <p><strong>Company:</strong> ${contact.company}</p>
-                <p><strong>Telephone:</strong> ${contact.telephone}</p>
-                <p><strong>Type:</strong> ${contact.type}</p>
-                <p><strong>Assigned To:</strong> ${contact.assigned_firstname} ${contact.assigned_lastname}</p>
-                <button onclick="assignToMe(${contact.id})">Assign to Me</button>
-                <button onclick="toggleType(${contact.id}, '${contact.type}')">Switch Type</button>
-            `;
-            document.getElementById('contactDetails').innerHTML = details;
+            const { title, firstname, lastname, email, company, telephone, type, assigned_firstname, assigned_lastname, id } = data.contact;
 
-            const notesList = notes.map(note => `
-                <li>${note.comment} by ${note.firstname} ${note.lastname} on ${note.created_at}</li>
-            `).join('');
+            // Display contact details in HTML
+            document.getElementById('contactDetails').innerHTML = `
+                <p><strong>Full Name:</strong> ${title} ${firstname} ${lastname}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Company:</strong> ${company}</p>
+                <p><strong>Telephone:</strong> ${telephone}</p>
+                <p><strong>Type:</strong> ${type}</p>
+                <p><strong>Assigned To:</strong> ${assigned_firstname} ${assigned_lastname}</p>
+                <button onclick="assignToMe(${id})">Assign to Me</button>
+                <button onclick="toggleType(${id}, '${type}')">Switch Type</button>
+            `;
+
+            // Display contact's notes
+            const notesList = data.notes.map(note => `<li>${note.comment} by ${note.firstname} ${note.lastname} on ${note.created_at}</li>`).join('');
             document.getElementById('notesList').innerHTML = notesList;
         });
 }
 
-// Add a note to the contact
-document.getElementById('addNoteForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const comment = document.getElementById('noteComment').value;
-    const contactId = 1;  // Example: should be dynamic
-    fetch('add_note.php', {
+// Example to assign contact to the logged-in user
+function assignToMe(contactId) {
+    fetch('assign_contact.php', {
         method: 'POST',
-        body: new URLSearchParams({
-            'contact_id': contactId,
-            'comment': comment
-        })
+        body: new URLSearchParams({ 'contact_id': contactId, 'assigned_to': 1 }) // Dynamic user ID needed
     })
     .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            loadContactDetails(contactId);  // Reload the contact details
-        }
-    });
-});
+    .then(() => loadContactDetails(contactId)); // Reload contact details
+}
+
+// Example to toggle contact type
+function toggleType(contactId, currentType) {
+    fetch('toggle_type.php', {
+        method: 'POST',
+        body: new URLSearchParams({ 'contact_id': contactId, 'new_type': currentType === 'Lead' ? 'Customer' : 'Lead' })
+    })
+    .then(response => response.json())
+    .then(() => loadContactDetails(contactId)); // Reload contact details after type change
+}

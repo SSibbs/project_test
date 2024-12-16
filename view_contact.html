@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Contact - Dolphin CRM</title>
+    <link rel="stylesheet" href="view_contact.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="home.php">Home</a></li>
+            <li><a href="new_contact.php">New Contact</a></li>
+            <li><a href="users.php">Users</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <!-- Header -->
+        <header>
+            <div class="navbar">
+                <h1>Dolphin CRM</h1>
+            </div>
+        </header>
+
+        <!-- Contact Information -->
+        <div class="contact-info">
+            <h2>Contact Details</h2>
+            <div class="contact-box">
+                <p><strong>Name:</strong> <?= htmlspecialchars($contact['firstname']) ?> <?= htmlspecialchars($contact['lastname']) ?></p>
+                <p><strong>Email:</strong> <?= htmlspecialchars($contact['email']) ?></p>
+                <p><strong>Company:</strong> <?= htmlspecialchars($contact['company']) ?></p>
+                <p><strong>Telephone:</strong> <?= htmlspecialchars($contact['telephone']) ?></p>
+                <p><strong>Assigned To:</strong> <?= htmlspecialchars($contact['assigned_firstname']) ?> <?= htmlspecialchars($contact['assigned_lastname']) ?></p>
+            </div>
+        </div>
+
+        <!-- Notes Section -->
+        <div class="notes-section">
+            <h2>Notes</h2>
+            <?php if (!empty($notes)) { ?>
+                <?php foreach ($notes as $note) { ?>
+                    <div class="note-box">
+                        <p><strong>By:</strong> <?= htmlspecialchars($note['firstname']) ?> <?= htmlspecialchars($note['lastname']) ?> <strong>on</strong> <?= htmlspecialchars($note['created_at']) ?></p>
+                        <p><?= nl2br(htmlspecialchars($note['comment'])) ?></p>
+                    </div>
+                <?php } ?>
+            <?php } else { ?>
+                <p>No notes available.</p>
+            <?php } ?>
+        </div>
+    </div>
+</body>
+</html>
