@@ -13,6 +13,7 @@ try {
     die('Connection failed: ' . $e->getMessage());
 }
 
+$_SESSION['user_id'] = $user_id;
 //session_start();
 
 // Check if user is logged in
