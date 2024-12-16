@@ -1,4 +1,5 @@
 <?php
+session_start();
 $host = 'localhost';
 $username = 'project_user';
 $password = 'password123';
@@ -12,7 +13,7 @@ try {
     die('Connection failed: ' . $e->getMessage());
 }
 
-session_start();
+//session_start();
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
