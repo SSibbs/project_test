@@ -1,26 +1,16 @@
 <?php
 session_start();
-$host = 'localhost';
-$username = 'project_user';
-$password = 'password123';
-$dbname = 'dolphin_crm';
-
-// Database connection
-try {
-    $pdo = new PDO('mysql:host=' . $host . ';dbname=' . $dbname, $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die('Connection failed: ' . $e->getMessage());
-}
+require 'database_connection.php';
 
 $_SESSION['user_id'] = $user_id;
-//session_start();
+
 
 // Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'message' => 'User not logged in.']);
-    exit;
-}
+//if (!isset($_SESSION['user_id'])) {
+    //echo json_encode(['success' => false, 'message' => 'User not logged in.']);
+    //exit;
+//}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize and validate input

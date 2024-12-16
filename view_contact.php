@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'database_connection.php'; // Include DB connection
 
 if (isset($_GET['contact_id'])) {
